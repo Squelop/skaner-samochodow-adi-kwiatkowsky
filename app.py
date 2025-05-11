@@ -39,7 +39,10 @@ moc_od = st.number_input("Moc od (KM)", 0, 1000, 0)
 moc_do = st.number_input("Moc do (KM)", 0, 1000, 1000)
 przebieg_od = st.number_input("Przebieg od (km)", 0, 1000000, 0)
 przebieg_do = st.number_input("Przebieg do (km)", 0, 1000000, 1000000)
+
+uszkodzony = st.selectbox("Czy auto jest uszkodzone?", ["dowolne", "tak", "nie"])
 strony = st.slider("Liczba stron do przeszukania", 1, 10, 3)
+
 
 def skanuj_otomoto(marka, model, rocznik_od, rocznik_do, paliwo, skrzynia, moc_od, moc_do, przebieg_od, przebieg_do, strony):
     wyniki = []
@@ -57,6 +60,12 @@ def skanuj_otomoto(marka, model, rocznik_od, rocznik_do, paliwo, skrzynia, moc_o
         if przebieg_od > 0:
             url += f"&search%5Bfilter_float_mileage%3Afrom%5D={przebieg_od}"
         if przebieg_do < 1000000:
+        url += f"&search%5Bfilter_float_mileage%3Ato%5D={przebieg_do}"
+    if uszkodzony == "tak":
+        url += "&search%5Bfilter_enum_damaged%5D=yes"
+    elif uszkodzony == "nie":
+        url += "&search%5Bfilter_enum_damaged%5D=no"
+
             url += f"&search%5Bfilter_float_mileage%3Ato%5D={przebieg_do}"
         headers = {"User-Agent": "Mozilla/5.0"}
         response = requests.get(url, headers=headers)
@@ -82,7 +91,10 @@ def skanuj_otomoto(marka, model, rocznik_od, rocznik_do, paliwo, skrzynia, moc_o
                     "Cena": cena.text.strip(),
                     "Rocznik": rocznik,
                     "Przebieg": przebieg,
-                    "Link": "https://www.otomoto.pl" + link_tag["href"]
+                    
+            href = link_tag["href"]
+            href = href if href.startswith("http") else "https://www.otomoto.pl" + href
+            "Link": href
                 })
     return wyniki
 
