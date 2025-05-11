@@ -158,7 +158,7 @@ if st.button("Szukaj ofert"):
         srednia = df["Cena (PLN)"].dropna().mean()
 
         st.success(f"Znaleziono {len(df)} ofert.")
-        
+
         # Filtrowanie po cenie
         min_price = int(df["Cena (PLN)"].min())
         max_price = int(df["Cena (PLN)"].max())
@@ -184,7 +184,7 @@ if not df.empty and "Cena (PLN)" in df.columns and df["Cena (PLN)"].notna().any(
         st.info("Brak danych do wyświetlenia wykresu średnich cen.")
 else:
     st.info("Brak danych do utworzenia wykresu średnich cen.")
-    
+
 
         if not pd.isna(srednia):
             st.subheader(f"Średnia cena: {int(srednia):,} PLN".replace(",", " "))
@@ -192,7 +192,7 @@ else:
             st.warning("Nie udało się obliczyć średniej ceny – brak danych liczbowych.")
 
         csv = df.to_csv(index=False).encode("utf-8")
-        
+
         import plotly.express as px
 
         # Wykres: Cena vs Rocznik
@@ -221,7 +221,7 @@ else:
         except:
             st.info("Nie udało się narysować wykresu Cena vs Przebieg.")
 
-        
+
         # Dodatkowe filtry po roczniku i przebiegu
         try:
             df["Rocznik_num"] = pd.to_numeric(df["Rocznik"], errors="coerce")
@@ -246,8 +246,8 @@ else:
         st.download_button("📥 Pobierz jako Excel", data=excel_data, file_name="oferty.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
         st.download_button("📥 Pobierz jako CSV", data=csv, file_name="oferty.csv", mime="text/csv")
-    
-    
+
+
     else:
         st.warning("Nie znaleziono żadnych ofert.")
 
