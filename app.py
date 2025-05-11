@@ -130,7 +130,20 @@ if st.button("Szukaj ofert"):
             wszystkie_wyniki += skanuj_olx(marka, model, rocznik_od, rocznik_do, strony)
     if wszystkie_wyniki:
         df = pd.DataFrame(wszystkie_wyniki)
+        
+        def extract_price(text):
+            try:
+                return int(''.join(filter(str.isdigit, text)))
+            except:
+                return None
+
+        df["Cena (PLN)"] = df["Cena"].apply(extract_price)
+        srednia = df["Cena (PLN)"].dropna().mean()
+        if not pd.isna(srednia):
+            st.subheader(f"Średnia cena: {int(srednia):,} PLN".replace(",", " "))
+
         st.dataframe(df)
+    
         csv = df.to_csv(index=False).encode("utf-8")
         output = io.BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
