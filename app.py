@@ -7,6 +7,7 @@ from urllib.parse import quote_plus
 import io
 
 st.set_page_config(page_title="Szybkie porównywanie ofert samochodowych by adi.kwiatkowsky", layout="wide")
+st.image("banner.png", use_column_width=True)
 st.title("SZYBKIE PORÓWNYWANIE OFERT SAMOCHODOWYCH by adi.kwiatkowsky")
 
 paliwo_map = {
