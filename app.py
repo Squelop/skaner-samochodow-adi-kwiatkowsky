@@ -82,10 +82,7 @@ def skanuj_otomoto(marka, model, rocznik_od, rocznik_do, paliwo, skrzynia, moc_o
                     "Cena": cena.text.strip(),
                     "Rocznik": rocznik,
                     "Przebieg": przebieg,
-                    
-            href = link_tag["href"]
-            href = href if href.startswith("http") else "https://www.otomoto.pl" + href
-            "Link": href
+                    "Link": "https://www.otomoto.pl" + link_tag["href"]
                 })
     return wyniki
 
