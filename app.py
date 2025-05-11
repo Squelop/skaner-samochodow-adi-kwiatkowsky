@@ -60,7 +60,7 @@ def skanuj_otomoto(marka, model, rocznik_od, rocznik_do, paliwo, skrzynia, moc_o
         if przebieg_od > 0:
             url += f"&search%5Bfilter_float_mileage%3Afrom%5D={przebieg_od}"
         if przebieg_do < 1000000:
-        url += f"&search%5Bfilter_float_mileage%3Ato%5D={przebieg_do}"
+            url += f"&search%5Bfilter_float_mileage%3Ato%5D={przebieg_do}"
     if uszkodzony == "tak":
         url += "&search%5Bfilter_enum_damaged%5D=yes"
     elif uszkodzony == "nie":
