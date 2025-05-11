@@ -184,7 +184,6 @@ if not df.empty and "Cena (PLN)" in df.columns and df["Cena (PLN)"].notna().any(
         st.info("Brak danych do wyświetlenia wykresu średnich cen.")
 else:
     st.info("Brak danych do utworzenia wykresu średnich cen.")
-        st.plotly_chart(fig_bar)
     
 
         if not pd.isna(srednia):
