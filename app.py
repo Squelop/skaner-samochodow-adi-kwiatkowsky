@@ -170,10 +170,16 @@ if st.button("Szukaj ofert"):
         # Wykres średnich cen per portal
         df_avg = df.groupby("Portal")["Cena (PLN)"].mean().reset_index()
         
+# Wykres średnich cen per portal (bezpieczna wersja)
 if not df.empty and "Cena (PLN)" in df.columns and df["Cena (PLN)"].notna().any():
     df_avg = df.groupby("Portal")["Cena (PLN)"].mean().reset_index()
     if not df_avg.empty:
-        fig_bar = px.bar(df_avg, x="Portal", y="Cena (PLN)", title="Średnia cena samochodów wg portalu")
+        fig_bar = px.bar(
+            df_avg,
+            x="Portal",
+            y="Cena (PLN)",
+            title="Średnia cena samochodów wg portalu"
+        )
         st.plotly_chart(fig_bar)
     else:
         st.info("Brak danych do wyświetlenia wykresu średnich cen.")
